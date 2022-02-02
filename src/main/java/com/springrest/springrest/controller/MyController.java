@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/courses")
 public class MyController {
 
     @Autowired
@@ -21,36 +22,37 @@ public class MyController {
     {
         return "Welcome to Courses application";
     }
+
     //Get all courses
-    @GetMapping("/courses")
+    @GetMapping()
     public List<Course> getCourses()
     {
         return courseService.getCourses();
     }
 
     //Get Single Course
-    @GetMapping("/courses/{courseId}")
+    @GetMapping("/{courseId}")
     public Course getCourse(@PathVariable String courseId)
     {
         return courseService.getCourse(Long.parseLong(courseId));
     }
 
     //Add Course
-    @PostMapping("/courses")
+    @PostMapping()
     public Course addCourse(@RequestBody Course course)
     {
         return courseService.addCourse(course);
     }
 
     //Update Course
-    @PutMapping("/courses")
+    @PutMapping()
     public Course updateCourse(@RequestBody Course course)
     {
         return courseService.updateCourse(course);
     }
 
     //Delete Course
-    @DeleteMapping("/courses/{courseId}")
+    @DeleteMapping("/{courseId}")
     public ResponseEntity<HttpStatus> deleteCourse(@PathVariable String courseId)
     {
         try{
@@ -61,7 +63,6 @@ public class MyController {
         {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
 }
